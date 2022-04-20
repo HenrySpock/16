@@ -110,6 +110,11 @@ function saveUserCredentialsInLocalStorage() {
 function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
+  // Subpart 3A: allowing "favorite" stars to appear /-------------
+  hidePageComponents();
+  putStoriesOnPage();
+  // Subpart 3A: allowing "favorite" stars to appear -------------/
+
   $allStoriesList.show();
 
   updateNavOnLogin();

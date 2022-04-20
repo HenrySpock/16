@@ -6,7 +6,7 @@
 
 /** Show main list of all stories when click site name */
 
-function navAllStories(evt) {
+function navAllStories(evt) { 
   console.debug("navAllStories", evt);
   hidePageComponents();
   putStoriesOnPage();
@@ -14,10 +14,38 @@ function navAllStories(evt) {
 
 $body.on("click", "#nav-all", navAllStories);
 
-/** Show login/signup on click on "login" */
+// Subpart 2B 3: un-hide the story submission form /--------------------------
+function navSubmitStoryClick() { 
+  hidePageComponents();
+  $allStoriesList.show();
+  $submitForm.show();
+}
 
-function navLoginClick(evt) {
-  console.debug("navLoginClick", evt);
+$navSubmitStory.on("click", navSubmitStoryClick);
+// Subpart 2B 3: un-hide the story submission form --------------------------/
+
+// Subpart 3A: show favorites on click: /-------------------------------------
+function navFavorites() {  
+  hidePageComponents();
+  showFavorites();
+}
+
+$body.on("click", "#nav-favorites", navFavorites);
+// Subpart 3A: show favorites on click: -------------------------------------/
+
+// Subpart 4: Click "my stories" to show user submissions /-------------------------
+
+function navMyStories() {  
+  hidePageComponents();
+  putUserStoriesOnPage();
+  $ownStories.show();
+}
+
+$body.on("click", "#nav-my-stories", navMyStories);
+// Subpart 4: Click "my stories" to show user submissions -------------------------/
+
+function navLoginClick(e) {
+  console.debug("navLoginClick", e);
   hidePageComponents();
   $loginForm.show();
   $signupForm.show();

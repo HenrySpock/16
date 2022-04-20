@@ -37,6 +37,22 @@
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
   </div>
+
+  <!-- Subpart 2B 2a /-------------------------------------------------- -->
+  <div class="main-nav-links">
+    <!-- //aesthetically needed a space -->
+    &nbsp |
+    <a class="nav-link" href="#" id="nav-user-submission">Submit Story</a>
+    |
+    <!-- Subpart 3A /-------------------------------------------------- -->
+    <a class="nav-link" href="#" id="nav-favorites">My Favorites</a>
+    <!-- Subpart 3A /-------------------------------------------------- -->
+    |
+    <a class="nav-link" href="#" id="nav-my-stories">My&nbsp;Stories</a>
+  </div>
+  <!-- Subpart 2B 2a --------------------------------------------------/ -->
+
+
   <div class="nav-right">
     <a class="nav-link" href="#" id="nav-login">login/signup</a>
     <a class="nav-link" href="#" id="nav-user-profile"></a>
@@ -52,6 +68,12 @@
 
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
+
+  <!-- List of favorites -->
+  <ol id="favorite-stories" class="stories-list"></ol>
+
+  <!-- List of user submitted stories -->
+  <ol id="my-stories" class="stories-list"></ol>
 
 </section>
 
@@ -94,6 +116,30 @@
     </div>
     <button type="submit">create account</button>
   </form>
+
+  <!-- Subpart 2B 1 - submit story form /--------------------------------------  -->
+  <!-- Submission Form -->
+  <form id="submission-form" class="hidden">
+    <h4>User Submission</h4>
+    <div class="title-input">
+      <label for="title-input">Title</label>
+      <input id="title-input">
+    </div>
+
+    <div class="author-input">
+      <label for="author-input">Author</label>
+      <input id="author-input">
+    </div>
+
+    <div class="url-input">
+      <label for="url-input">URL</label>
+      <input id="url-input">
+    </div>
+
+    <button type="submit">Submit Story</button>
+  </form>
+  <!-- Subpart 2B 1 - submit story form --------------------------------------/  -->
+
 </section>
 
 <!-- Library JS & our JS -->

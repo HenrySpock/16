@@ -2,17 +2,31 @@
 
 // So we don't have to keep re-finding things on page, find DOM elements once:
 
-const $body = $("body");
+const $body = $('body');
 
-const $storiesLoadingMsg = $("#stories-loading-msg");
-const $allStoriesList = $("#all-stories-list");
+const $storiesLoadingMsg = $('#stories-loading-msg');
+const $allStoriesList = $('#all-stories-list');
 
-const $loginForm = $("#login-form");
-const $signupForm = $("#signup-form");
+//  Subpart 3A: variable for favorite-stories list on html; collecting story lists into one place /------
+const $favoriteStories = $('#favorite-stories');
+const $storiesLists = $('.stories-list'); 
+//  Subpart 3A -----------------------------------------------------------------------------------------/
 
-const $navLogin = $("#nav-login");
-const $navUserProfile = $("#nav-user-profile");
-const $navLogOut = $("#nav-logout");
+// Subpart 4: user submitted stories / deletion /---------------------------------------------------------
+const $ownStories = $('#my-stories');
+// Subpart 4: user submitted stories / deletion ---------------------------------------------------------/
+
+const $loginForm = $('#login-form');
+const $signupForm = $('#signup-form');
+
+// Subpart 2B 2b: define ids for the submission form and for clicking on Submit Story in navbar /-------
+const $submitForm = $('#submission-form');
+const $navSubmitStory = $('#nav-user-submission');
+// Subpart 2B 2b: define ids for the submission form and for clicking on Submit Story in navbar --------/
+
+const $navLogin = $('#nav-login');
+const $navUserProfile = $('#nav-user-profile');
+const $navLogOut = $('#nav-logout'); 
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
@@ -24,6 +38,11 @@ function hidePageComponents() {
     $allStoriesList,
     $loginForm,
     $signupForm,
+    // Subpart Addendum: additional nav-click cleanup /--------------------------------------
+    $submitForm,
+    $favoriteStories,
+    $ownStories
+    // Subpart Addendum: additional nav-click cleanup --------------------------------------/
   ];
   components.forEach(c => c.hide());
 }
@@ -47,4 +66,5 @@ console.warn("HEY STUDENT: This program sends many debug messages to" +
   " the console. If you don't see the message 'start' below this, you're not" +
   " seeing those helpful debug messages. In your browser console, click on" +
   " menu 'Default Levels' and add Verbose");
+  
 $(start);

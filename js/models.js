@@ -73,10 +73,57 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
+  //Subpart 2A /---------------------------------------------------------------
+  // user takes in currentUser, then title/author/url are taken from html form
+  async addStory(user, { title, author, url }) { 
+    // token required for POST 
+    const token = user.loginToken;
+    const endpoint = BASE_URL + `/stories` 
+
+    const response = await axios({
+      method: "POST",
+      url: endpoint, 
+      data: { token, story: { title, author, url } },
+    });
+
+    const story = new Story(response.data.story);
+
+    this.stories.unshift(story);
+    //array of all stories, defined in constructor of Storylist
+    // console.log(this.stories);
+    //array of user submitted stories, array defined in User constructor
+    user.ownStories.unshift(story);
+    console.log (user.ownStories);
+
+    return story;
+    //returning response.data.story to 
   }
+  // story test:
+  // let newStory = await storyList.addStory(currentUser,
+  //   {title: "Test", author: "Me", url: "http://meow.com"});
+  // instance test:
+  // newStory instanceof Story;      // should be true!
+  //Subpart 2A ---------------------------------------------------------------/
+
+  //Subpart 4: Deleting a story /------------------------------------------------
+    async removeStory(user, storyId) {
+      const token = user.loginToken;
+      await axios({
+        url: `${BASE_URL}/stories/${storyId}`,
+        method: "DELETE",
+        data: { token: user.loginToken }
+      });
+
+      // filter out the story whose ID we are removing
+      this.stories = this.stories.filter(story => story.storyId !== storyId);
+
+      // do the same thing for the user's list of stories & their favorites
+      user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
+      user.favorites = user.favorites.filter(s => s.storyId !== storyId);
+    }
+  //Subpart 4: Deleting a story ------------------------------------------------/
 }
+
 
 
 /******************************************************************************
@@ -193,4 +240,38 @@ class User {
       return null;
     }
   }
+
+  // Subpart 3A: Add story to list of favorites and update API /--------------
+
+    async addFavorite(story) {
+      this.favorites.push(story);
+      await this._favAddRemove("add", story)
+    }
+  
+    //Remove story from favorites/update API
+  
+    async removeFavorite(story) {
+      this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
+      await this._favAddRemove("remove", story);
+    }
+
+    //Favorite/not-favorite, updating API
+  
+    async _favAddRemove(newState, story) {
+      const method = newState === "add" ? "POST" : "DELETE";
+      const token = this.loginToken;
+      await axios({
+        url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+        method: method,
+        data: { token },
+      });
+    }
+  
+    /** Return true/false if given Story instance is a favorite of this user. */
+  
+    isFavorite(story) {
+      return this.favorites.some(s => (s.storyId === story.storyId));
+    }
+  // Subpart 3A: Add story to list of favorites and update API --------------/
+
 }
